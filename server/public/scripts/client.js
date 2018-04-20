@@ -14,6 +14,12 @@ function runOperation () {
     y: $('#secondValue').val(),
     type: $(this).val()
   }
+  if (equation.x == '') {
+    equation.x = '0';
+  }
+  if (equation.y == '') {
+    equation.y = '0';
+  }
   
   submitEquation(equation);
   $('input').val('');
