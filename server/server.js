@@ -21,6 +21,14 @@ app.get('/compute', (req, res) => {
   res.send(`${computation.x} ${getOperand()} ${computation.y} = ${compute()}`);
 })
 
+app.post('/submit-equation', (req, res) => {
+  computation.x = req.body.x;
+  computation.y = req.body.y;
+  computation.type = req.body.type;
+  console.log(computation);
+  res.send(200);
+})
+
 function compute () {
   let x = Number(computation.x);
   let y = Number(computation.y);

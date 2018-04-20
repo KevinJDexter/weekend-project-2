@@ -9,33 +9,37 @@ function onReady () {
 }
 
 function runOperation () {
-  let firstNum = $('#firstValue');
-  let secondNum = $('#secondValue');
-  let result = '<li>It worked</li>';
-  switch ($(this).text()) {
-    case '+':
-      console.log('+');
-      break;
-
-    case '-':
-      console.log('-');
-      break;
-      
-    case '/':
-      console.log('/');
-      break;
-      
-    case '*':
-      console.log('*');
-      break;
-      
-    default:
-      console.log('awww');
-      break;
+  let equation = {
+    x: $('#firstValue').val(),
+    y: $('#secondValue').val(),
+    type: $(this).val()
   }
-  $('#resultsDiv').append(result);
+  
+  submitEquation(equation);
+  $('input').val('');
 }
 
 function clearResults () {
   $('#resultsDiv').empty();
+}
+
+function submitEquation (equation) {
+  $.ajax({
+    method: 'POST',
+    url: '/submit-equation',
+    data: equation
+  })
+    .then( function (response) {
+      logEquation();
+    })
+}
+
+function logEquation () {
+  $.ajax({
+    method: 'GET',
+    url: 'compute'
+  })
+    .then (function (response) { 
+      $('#resultsDiv').append(`<li>${response}</li>`);
+    })
 }
