@@ -15,9 +15,7 @@ app.listen(PORT, () => {
 });
 
 app.get('/compute', (req, res) => {
-  computation.compute();
-  computation.addToCurrentEquation();
-  let toSend = computation.submitEquation();
+  let toSend = computation.history[computation.history.length-1];
   res.send(toSend);
 })
 
@@ -25,9 +23,13 @@ app.get('/populate', (req, res) => {
   res.send(computation.history);
 })
 
+app.post('/add-to-equation', (req, res) => {
+  computation.addToCurrentEquation (req.body);
+  res.sendStatus(200);
+});
+
 app.post('/submit-equation', (req, res) => {
-  computation.x = req.body.x;
-  computation.y = req.body.y;
-  computation.type = req.body.type;
+  console.log(req.body);
+  computation.submitEquation(req.body.x);
   res.sendStatus(200);
 })

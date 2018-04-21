@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +10,82 @@
   <script src="scripts/client.js"></script>
   <link rel="stylesheet" href="styles/style.css">
 </head>
+
 <body>
-  <input type="number" name="firstValue" id="firstValue" />
-  <input type="number" name="secondValue" id="secondValue" />
-  <button id="btnAdd" class="operation" value="Add">+</button>
-  <button id="btnSubtract" class="operation" value="Subtract">-</button>
-  <button id="btnMultiply" class="operation" value="Multiply">*</button>
-  <button id="btnDivide" class="operation" value="Divide">/</button>
-  <button id="btnClearInputs" class="clear" value="clear">C</button>
+  <!-- <input type="number" name="firstValue" id="firstValue" />
+  <input type="number" name="secondValue" id="secondValue" /> -->
+  <table>
+    <thead>
+      <tr>
+        <td colspan="4">
+          <input type="number" name="numField" id="numField" placeholder="0" disabled="disabled">
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <button class="btnNum">7</button>
+        </td>
+        <td>
+          <button class="btnNum">8</button>
+        </td>
+        <td>
+          <button class="btnNum">9</button>
+        </td>
+        <td>
+          <button id="btnDivide" class="operation" value="Divide">/</button>
+        </td>
+        <td>
+          <button id="btnClearInputs" class="clear" value="clear">C</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button class="btnNum">4</button>
+        </td>
+        <td>
+          <button class="btnNum">5</button>
+        </td>
+        <td>
+          <button class="btnNum">6</button>
+        </td>
+        <td>
+          <button id="btnMultiply" class="operation" value="Multiply">*</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button class="btnNum">1</button>
+        </td>
+        <td>
+          <button class="btnNum">2</button>
+        </td>
+        <td>
+          <button class="btnNum">3</button>
+        </td>
+        <td>
+          <button id="btnSubtract" class="operation" value="Subtract">-</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button class="btnNum">.</button>
+        </td>
+        <td>
+          <button class="btnNum">0</button>
+        </td>
+        <td>
+          <button id="btnEqual">=</button>
+        </td>
+        <td>
+          <button id="btnAdd" class="operation" value="Add">+</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <div id="resultsDiv"></div>
   <!-- <button id="btnClear">Clear</button> -->
 </body>
+
 </html>
