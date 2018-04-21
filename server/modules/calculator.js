@@ -12,38 +12,15 @@ class Calculator {
     }
   }
 
-  addToCurrentEquation (toAdd) {
+  // Adds operands and values to the operation
+  addToCurrentEquation(toAdd) {
     this.currentEquation = `${this.currentEquation}${toAdd.x} ${this.getOperand(toAdd.type)} `;
     this.sequence.numSequence.push(toAdd.x);
     this.sequence.operandSequence.push(toAdd.type);
   }
 
-  // addToCurrentEquation () {
-  //   // if (this.x == '') {
-  //   //   this.x = '0';
-  //   // }
-  //   // if (this.y == '') {
-  //   //   this.y = '0';
-  //   // }
-  //   // this.currentEquation = `${this.x} ${this.getOperand()} ${this.y} = ${this.result}`
-  //   if (this.y == '') {
-  //     this.currentEquation = `${this.currentEquation}${this.x} ${this.type} `;
-  //     this.sequence.numSequence.push(this.x);
-  //     this.sequence.operandSequence.push(this.type);
-  //   } else {
-  //     if (this.currentEquation != '') {
-  //       this.currentEquation = `${this.currentEquation}${this.y} = ${this.result}`;
-  //       this.sequence.numSequence.push(this.y);
-  //     } else {
-  //       this.currentEquation = `${this.x} ${this.type} ${this.y} = ${this.result}`;
-  //       this.sequence.numSequence.push(this.x);
-  //       this.sequence.numSequence.push(this.y);
-  //       this.sequence.operandSequence.push()
-  //     }
-  //   }
-  // }
-
-  submitEquation (finalVariable) {
+  // Takes in a final value and returns result of computation, clearing the existing expression
+  submitEquation(finalVariable) {
     this.sequence.numSequence.push(finalVariable);
 
     this.compute();
@@ -53,9 +30,12 @@ class Calculator {
     let toSend = this.currentEquation;
     this.history.push(this.currentEquation);
     this.currentEquation = '';
+    this.result = ''
+
     return toSend;
   }
 
+  // Runs computation on stored equation storing the rusult in a variable
   compute() {
     let x;
     let y;
@@ -71,20 +51,18 @@ class Calculator {
         x = this.sequence.numSequence[nextIndex];
         y = this.sequence.numSequence.splice(nextIndex + 1, 1)[0];
         type = this.sequence.operandSequence.splice(nextIndex, 1)[0];
-        this.sequence.numSequence[nextIndex] = this.computeSection({x: x, y: y, type: type});
+        this.sequence.numSequence[nextIndex] = this.computeSection({ x: x, y: y, type: type });
       } else {
         x = this.sequence.numSequence.shift();
         y = this.sequence.numSequence.shift();
         type = this.sequence.operandSequence.shift();
-        this.sequence.numSequence.unshift(this.computeSection({x: x, y: y, type: type}));
-
+        this.sequence.numSequence.unshift(this.computeSection({ x: x, y: y, type: type }));
       }
-
-
     }
     this.result = this.sequence.numSequence.shift();
   }
 
+  // Runs calculation on just 2 numbers with the middle operand
   computeSection(section) {
     let x = Number(section.x);
     let y = Number(section.y);
@@ -111,6 +89,7 @@ class Calculator {
 
   }
 
+  // Gets symbol associated with action
   getOperand(type) {
     switch (type) {
       case 'Add':
@@ -137,3 +116,31 @@ class Calculator {
 }
 
 module.exports = Calculator;
+
+
+
+// Old method for adding to the equation. Simplified into new methods.
+  // addToCurrentEquation () {
+  //   // if (this.x == '') {
+  //   //   this.x = '0';
+  //   // }
+  //   // if (this.y == '') {
+  //   //   this.y = '0';
+  //   // }
+  //   // this.currentEquation = `${this.x} ${this.getOperand()} ${this.y} = ${this.result}`
+  //   if (this.y == '') {
+  //     this.currentEquation = `${this.currentEquation}${this.x} ${this.type} `;
+  //     this.sequence.numSequence.push(this.x);
+  //     this.sequence.operandSequence.push(this.type);
+  //   } else {
+  //     if (this.currentEquation != '') {
+  //       this.currentEquation = `${this.currentEquation}${this.y} = ${this.result}`;
+  //       this.sequence.numSequence.push(this.y);
+  //     } else {
+  //       this.currentEquation = `${this.x} ${this.type} ${this.y} = ${this.result}`;
+  //       this.sequence.numSequence.push(this.x);
+  //       this.sequence.numSequence.push(this.y);
+  //       this.sequence.operandSequence.push()
+  //     }
+  //   }
+  // }

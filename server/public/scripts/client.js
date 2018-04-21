@@ -14,6 +14,7 @@ function onReady () {
   populateHistory();
 }
 
+// Appends number to the current number, clearing it first it toReset is triggered
 function addNum () {
   if (toReset) {
     clearInputs();
@@ -22,6 +23,7 @@ function addNum () {
   $('#numField').val($('#numField').val() + $(this).text());
 }
 
+// Submits the given operation, trigering the toReset variable to enable clearing of the input
 function runOperation () {
   let equation = {
     x: $('#numField').val(),
@@ -42,14 +44,12 @@ function clearResults () {
 // Commits the current equation to get answer
 function submitEquation () {
   let x = $('#numField').val();
-  console.log(x);
+  if (x == '') {x = '0'};
   $.ajax({
     method: 'POST',
     url: '/submit-equation',
     data: {x: x}
-  })
-    .then( function (response) {
-      console.log("HIT");
+  }).then( function (response) {
       logEquation();
       clearInputs();
     })
