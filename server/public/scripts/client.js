@@ -5,7 +5,9 @@ $(document).ready(onReady);
 function onReady () {
   console.log('jQuery loaded');
   $('.operation').on('click', runOperation);
-  $('#btnClear').on('click', clearResults);
+  $('#btnClearInputs').on('click', clearInputs);
+  // $('#btnClear').on('click', clearResults);
+  populateHistory();
 }
 
 function runOperation () {
@@ -22,7 +24,7 @@ function runOperation () {
   }
   
   submitEquation(equation);
-  $('input').val('');
+  // $('input').val('');
 }
 
 function clearResults () {
@@ -46,6 +48,24 @@ function logEquation () {
     url: 'compute'
   })
     .then (function (response) { 
-      $('#resultsDiv').append(`<li>${response}</li>`);
+      $('#resultsDiv').append(`<p>${response}</p>`);
     })
+}
+
+function populateHistory () {
+  $.ajax({
+    method: 'GET',
+    url: '/populate'
+  })
+    .then (function (response) {
+      console.log('BOOM');
+      response.forEach(equation => {
+        $('#resultsDiv').append(`<p>${equation}</p>`);
+      });
+    })
+}
+
+function clearInputs () {
+  $('#firstValue').val('');
+  $('#secondValue').val('');
 }

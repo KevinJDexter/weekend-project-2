@@ -4,11 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 5000;
 
-let computation = {
-  x: '0',
-  y: '0',
-  type: 'Add'
-}
+const Calculator = require('./modules/calculator');
+const computation = new Calculator();
 
 app.use(express.static('server/public'));
 app.use(bodyParser.urlencoded({extended : true}));
@@ -18,61 +15,19 @@ app.listen(PORT, () => {
 });
 
 app.get('/compute', (req, res) => {
-  res.send(`${computation.x} ${getOperand()} ${computation.y} = ${compute()}`);
+  computation.compute();
+  computation.addToCurrentEquation();
+  let toSend = computation.submitEquation();
+  res.send(toSend);
+})
+
+app.get('/populate', (req, res) => {
+  res.send(computation.history);
 })
 
 app.post('/submit-equation', (req, res) => {
   computation.x = req.body.x;
   computation.y = req.body.y;
   computation.type = req.body.type;
-  console.log(computation);
-  res.send(200);
+  res.sendStatus(200);
 })
-
-function compute () {
-  let x = Number(computation.x);
-  let y = Number(computation.y);
-  switch (computation.type) {
-    case 'Add':
-      return x + y;
-      break;
-  
-    case 'Subtract':
-      return x - y;
-      break;
-  
-    case 'Multiply':
-      return x * y;
-      break;
-  
-    case 'Divide':
-      return x / y;
-      break;
-  
-    default:
-      break;
-  }
-}
-
-function getOperand () {
-  switch (computation.type) {
-    case 'Add':
-      return '+';
-      break;
-  
-    case 'Subtract':
-      return '-';
-      break;
-  
-    case 'Multiply':
-      return '*';
-      break;
-  
-    case 'Divide':
-      return '/';
-      break;
-  
-    default:
-      break;
-  }
-}
