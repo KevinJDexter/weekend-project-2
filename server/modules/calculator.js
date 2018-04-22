@@ -119,7 +119,15 @@ module.exports = Calculator;
 
 
 
+
+
+
+
+
+
 // Old method for adding to the equation. Simplified into new methods.
+
+
   // addToCurrentEquation () {
   //   // if (this.x == '') {
   //   //   this.x = '0';

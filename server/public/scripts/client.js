@@ -10,8 +10,13 @@ function onReady () {
   $('#btnEqual').on('click', submitEquation);
   $('.btnNum').on('click', addNum);
   $('#btnClearInputs').on('click', clearInputs);
-  // $('#btnClear').on('click', clearResults);
+  $('#btnClearAll').on('click', clearAll);
   populateHistory();
+}
+
+function clearAll () {
+  clearInputs();
+  clearResults();
 }
 
 // Appends number to the current number, clearing it first it toReset is triggered
