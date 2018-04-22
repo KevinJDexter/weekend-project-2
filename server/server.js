@@ -37,6 +37,12 @@ app.post('/submit-equation', (req, res) => {
   res.sendStatus(200);
 })
 
-app.delete('/delete-history', (req, res) => {
+app.delete('/delete-current-equation', (req, res) => {
+  computation.resetEquation();
+  res.sendStatus(200);
+})
 
+app.delete('/delete-history', (req, res) => {
+  computation.deleteHistory();
+  res.sendStatus(200);
 })

@@ -9,14 +9,9 @@ function onReady () {
   $('.operation').on('click', runOperation);
   $('#btnEqual').on('click', submitEquation);
   $('.btnNum').on('click', addNum);
-  $('#btnClearInputs').on('click', clearInputs);
+  $('#btnClearInputs').on('click', clearEquation);
   $('#btnClearAll').on('click', clearAll);
   populateHistory();
-}
-
-function clearAll () {
-  clearInputs();
-  clearResults();
 }
 
 // Appends number to the current number, clearing it first it toReset is triggered
@@ -101,3 +96,28 @@ function populateHistory () {
 function clearInputs () {
   $('#numField').val('');
 }
+
+function clearEquation () {
+  clearInputs()
+  
+  $.ajax({
+    method: 'DELETE',
+    url: '/delete-current-equation'
+  })
+    .then (function (response) {
+      console.log(response);
+    });
+};
+
+function clearAll () {
+  clearInputs();
+  clearResults();
+  
+  $.ajax ({ 
+    method: 'DELETE',
+    url: '/delete-history'
+  })
+    .then (function (response) {
+      console.log(response);
+    });
+};

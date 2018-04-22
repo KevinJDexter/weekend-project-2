@@ -1,8 +1,8 @@
 class Calculator {
   constructor() {
-    this.x = '';
-    this.y = '';
-    this.type = '';
+    // this.x = '';
+    // this.y = '';
+    // this.type = '';
     this.result = '';
     this.history = [];
     this.currentEquation = '';
@@ -113,6 +113,18 @@ class Calculator {
     }
 
   }
+
+  resetEquation () {
+    this.currentEquation = '';
+    this.sequence.numSequence = [];
+    this.sequence.operandSequence = [];
+  }
+
+  deleteHistory() {
+    this.history = [];
+    this.resetEquation();
+  }
+
 }
 
 module.exports = Calculator;
